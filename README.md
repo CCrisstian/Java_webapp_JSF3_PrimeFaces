@@ -32,3 +32,58 @@
 - <b>Invoca evento de aplicación</b>: Se invocan los métodos de negocio según las acciones del usuario.
 - <b>Procesa eventos</b>: Otros eventos son gestionados a medida que ocurren.
 - <b>Renderizar la respuesta</b>: Finalmente, se genera la vista y se envía como respuesta HTTP al cliente.
+
+<h2 align="center">JSF maneja el ciclo de vida HTTP internamente</h2>
+<p>JSF es un <b>framework basado en componentes</b> que implementa MVC (Modelo-Vista-Controlador) y encapsula los detalles de las solicitudes HTTP. Esto significa que <b>JSF se encarga del manejo de las peticiones HTTP</b>, de forma que no se necesita interactuar directamente con <b>HttpServletRequest</b>, <b>doGet</b> ni <b>doPost.</b></p>
+
+<h2 align="center">Uso de beans y anotaciones CDI</h2>
+
+La anotación `@Model` que se usa en el controlador `ProductoController` es una combinación de `@Named` y `@RequestScoped`, que es parte del estándar `CDI` (<b>Contexts and Dependency Injection</b>). Esto permite que <b>JSF</b> gestione el ciclo de vida de los objetos y los exponga en la vista como beans.
+
+```java
+@Model
+public class ProductoController {
+
+}
+```
+
+- `@Named`: Permite que el bean sea accesible desde las páginas JSF mediante E.L. (Expression Language), como `#{productoController}`.
+- `@RequestScoped`: Define que el bean tendrá un ciclo de vida que dura una sola petición HTTP.
+
+<h2 align="center">Abstracción del HTTPServlet</h2>
+
+El servlet todavía existe en JSF internamente, ya que <b>JSF utiliza un servlet especial llamado</b> `FacesServlet` para procesar todas las peticiones. Este servlet es configurado automáticamente en el archivo `web.xml` o mediante anotaciones.
+
+```xml
+    <servlet>
+        <servlet-name>faces-servlet-name</servlet-name>
+        <servlet-class>jakarta.faces.webapp.FacesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>faces-servlet-name</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+```
+
+<h2 align="center">AJAX - Faces - PrimeFaces</h2>
+<h3>AJAX (Asynchronous JavaScript and XML):</h3>
+
+- Es una técnica que permite realizar solicitudes al servidor sin recargar toda la página web.
+- Funciona de manera asíncrona, es decir, el navegador puede enviar datos al servidor y recibir respuestas sin interrumpir la experiencia del usuario.
+- En <b>JSF</b> y <b>PrimeFaces</b>, <b>AJAX</b> se utiliza con componentes como `<p:ajax>` para actualizar partes específicas de la página de forma eficiente.
+
+<h3>Faces (Jakarta Faces / JSF):</h3>
+
+- Es un <b>framework</b> para aplicaciones <b>web en Java</b>, parte de la especificación de Jakarta EE (anteriormente Java EE).
+- Permite desarrollar interfaces de usuario basadas en componentes reutilizables.
+- Usa páginas <b>XHTML</b> para definir la interfaz de usuario y <b>beans</b> (como `ProductoController`) para manejar la lógica de la aplicación.
+- Facilita la integración de la lógica del servidor con el frontend.
+
+<h3>PrimeFaces:</h3>
+
+- Es una <b>biblioteca de componentes</b> para <b>JSF</b>.
+- Proporciona componentes avanzados y personalizables como <b>botones, tablas, formularios, diálogos</b> y soporte integrado para <b>AJAX</b>.
+- Simplifica el desarrollo de interfaces modernas y ricas en funcionalidades, optimizando la interacción con el usuario.
+
+<p><b>AJAX</b> facilita la comunicación asíncrona con el servidor, <b>JSF</b> gestiona la arquitectura y el flujo de la aplicación web, y <b>PrimeFaces</b> ofrece componentes visuales avanzados que mejoran la experiencia de desarrollo.</p>
