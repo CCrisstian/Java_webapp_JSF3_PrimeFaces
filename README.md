@@ -50,6 +50,21 @@ public class ProductoController {
 - `@Named`: Permite que el bean sea accesible desde las páginas JSF mediante E.L. (Expression Language), como `#{productoController}`.
 - `@RequestScoped`: Define que el bean tendrá un ciclo de vida que dura una sola petición HTTP.
 
+<h2 align="center">Acciones y binding a componentes UI</h2>
+
+En la vista `index.xhtml`, se utilizan componentes como `<p:commandButton>` y `<p:ajax>` de <b>PrimeFaces</b>, que permiten invocar métodos directamente desde el controlador (`ProductoController`).
+
+```xhtml
+<p:commandButton value="Eliminar"
+    action="#{productoController.eliminar(prod)}"
+    update="tabla"/>
+```
+
+- `action`: Ejecuta el método `eliminar` en el bean `productoController`.
+- `update`: Especifica qué parte de la vista se actualizará tras la ejecución del método.
+
+<b>JSF</b> se encarga de generar las solicitudes HTTP necesarias bajo el capó y llamar a los métodos del controlador, sin que se tenga que escribir manualmente un `servlet` ni manejar `doGet` o `doPost`.
+
 <h2 align="center">Abstracción del HTTPServlet</h2>
 
 El servlet todavía existe en JSF internamente, ya que <b>JSF utiliza un servlet especial llamado</b> `FacesServlet` para procesar todas las peticiones. Este servlet es configurado automáticamente en el archivo `web.xml` o mediante anotaciones.
