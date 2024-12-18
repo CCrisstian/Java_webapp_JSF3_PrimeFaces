@@ -113,6 +113,18 @@ Facelets (`*.xhtml`) es el motor de vistas de JSF y reemplaza la necesidad de es
 - Interactividad mejorada:
   - <b>AJAX</b> permite crear experiencias de usuario más dinámicas y fluidas.
 
+<h2 align="center">Eventos y AJAX en JSF</h2>
+
+JSF ofrece soporte integrado para <b>eventos y AJAX</b> que facilitan el manejo de interacciones asincrónicas, como lo hace:
+
+```xml
+<p:ajax listener="#{productoController.buscar}" event="keyup" update="tabla"/>
+```
+
+- `listener`: Llama al método `buscar` del controlador.
+- `update`: Actualiza dinámicamente partes de la página (sin recargar toda la vista).
+
+El soporte de <b>AJAX</b> y eventos simplifica la interacción con el servidor y evita la necesidad de escribir lógica manual en un servlet.
 
 <h2 align="center">Abstracción del HTTPServlet</h2>
 
