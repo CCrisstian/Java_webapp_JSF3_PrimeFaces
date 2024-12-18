@@ -65,6 +65,55 @@ En la vista `index.xhtml`, se utilizan componentes como `<p:commandButton>` y `<
 
 <b>JSF</b> se encarga de generar las solicitudes HTTP necesarias bajo el capó y llamar a los métodos del controlador, sin que se tenga que escribir manualmente un `servlet` ni manejar `doGet` o `doPost`.
 
+<h2 align="center">Vista declarativa con Facelets</h2>
+
+Facelets (`*.xhtml`) es el motor de vistas de JSF y reemplaza la necesidad de escribir HTML y lógica de backend manualmente en un servlet. Cumple un papel crucial en el diseño de interfaces web dinámicas al permitir que el desarrollador defina la estructura y el comportamiento de la vista directamente en archivos `XHTML` mediante etiquetas declarativas.
+
+```xhtml
+            <h:form>
+                <div class="p-field p-grid p-my-2">
+                    <label for="textoBuscar" class="p-col-fixed" style="width:100px">Buscar</label>
+                    <div class="p-col">
+                        <p:inputText id="textoBuscar" value="#{productoController.textoBuscar}" placeholder="Buscar">
+                            <p:ajax listener="#{productoController.buscar}" event="keyup" update="mostrar tabla"/>
+                        </p:inputText>
+                    </div>
+                    <div class="p-col">
+                        <h:outputText value="#{productoController.textoBuscar}" id="mostrar"/>
+                    </div>
+                </div>
+            </h:form>
+```
+
+<h3>Relación con el Controlador ProductoController:</h3>
+
+- Método `buscar()`:
+  - Invocado por <b>AJAX</b> cada vez que el usuario escribe algo en el campo de texto.
+  - Filtra la lista de productos según el valor de `textoBuscar` mediante el método `service.buscarPorNombre(this.textoBuscar)`.
+- Propiedad `textoBuscar`:
+  - Define la entrada del usuario vinculada al campo de texto de la vista.
+  - Su valor se actualiza automáticamente gracias a la vinculación con `value="#{productoController.textoBuscar}"`.
+- Lista de productos (`listado`):
+  - Contiene los resultados filtrados de la búsqueda.
+  - Se utiliza en otras partes de la vista (por ejemplo, en una tabla) para mostrar los productos que coinciden con el criterio de búsqueda.
+
+<h3>Flujo general del comportamiento:</h3>
+
+- El usuario escribe en el campo de texto.
+- El evento `keyup` activa el componente <b>AJAX</b>, que envía el texto ingresado al servidor.
+- El método `buscar()` en el controlador actualiza la lista de productos según el texto ingresado.
+- Las partes de la vista especificadas (`mostrar` y `tabla`) se actualizan dinámicamente con los nuevos datos sin recargar la página completa.
+
+<h3>Ventajas de usar Facelets:</h3>
+
+- Separación de responsabilidades:
+  - La vista (`XHTML`) se encarga de definir el diseño y la interacción, mientras que la lógica de negocio está en el controlador.
+- Desarrollo rápido y modular:
+  - El uso de componentes reutilizables reduce el tiempo de desarrollo y mejora la legibilidad del código.
+- Interactividad mejorada:
+  - <b>AJAX</b> permite crear experiencias de usuario más dinámicas y fluidas.
+
+
 <h2 align="center">Abstracción del HTTPServlet</h2>
 
 El servlet todavía existe en JSF internamente, ya que <b>JSF utiliza un servlet especial llamado</b> `FacesServlet` para procesar todas las peticiones. Este servlet es configurado automáticamente en el archivo `web.xml` o mediante anotaciones.
