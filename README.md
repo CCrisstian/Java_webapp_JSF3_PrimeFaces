@@ -70,19 +70,19 @@ En la vista `index.xhtml`, se utilizan componentes como `<p:commandButton>` y `<
 Facelets (`*.xhtml`) es el motor de vistas de JSF y reemplaza la necesidad de escribir HTML y lógica de backend manualmente en un servlet. Cumple un papel crucial en el diseño de interfaces web dinámicas al permitir que el desarrollador defina la estructura y el comportamiento de la vista directamente en archivos `XHTML` mediante etiquetas declarativas.
 
 ```xhtml
-            <h:form>
-                <div class="p-field p-grid p-my-2">
-                    <label for="textoBuscar" class="p-col-fixed" style="width:100px">Buscar</label>
-                    <div class="p-col">
-                        <p:inputText id="textoBuscar" value="#{productoController.textoBuscar}" placeholder="Buscar">
-                            <p:ajax listener="#{productoController.buscar}" event="keyup" update="mostrar tabla"/>
-                        </p:inputText>
-                    </div>
-                    <div class="p-col">
-                        <h:outputText value="#{productoController.textoBuscar}" id="mostrar"/>
-                    </div>
-                </div>
-            </h:form>
+<h:form>
+<div class="p-field p-grid p-my-2">
+    <label for="textoBuscar" class="p-col-fixed" style="width:100px">Buscar</label>
+    <div class="p-col">
+        <p:inputText id="textoBuscar" value="#{productoController.textoBuscar}" placeholder="Buscar">
+            <p:ajax listener="#{productoController.buscar}" event="keyup" update="mostrar tabla"/>
+        </p:inputText>
+    </div>
+    <div class="p-col">
+        <h:outputText value="#{productoController.textoBuscar}" id="mostrar"/>
+    </div>
+</div>
+</h:form>
 ```
 
 <h3>Relación con el Controlador ProductoController:</h3>
